@@ -2,9 +2,20 @@ import path from "path"
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import mdx from '@mdx-js/rollup'
+import remarkFrontmatter from 'remark-frontmatter'
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import rehypePrettyCode from 'rehype-pretty-code'
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    mdx({
+      remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
+      rehypePlugins: [[rehypePrettyCode, { theme: 'github-dark-default' }]],
+    }),
+    react(),
+    tailwindcss(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

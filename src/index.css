@@ -134,3 +134,62 @@
     @apply font-sans;
   }
 }
+
+/* MDX prose styles */
+.prose {
+  @apply text-foreground leading-relaxed;
+
+  h1 {
+    @apply text-2xl font-semibold tracking-tight mt-10 mb-4;
+  }
+  h2 {
+    @apply text-xl font-semibold tracking-tight mt-8 mb-3;
+  }
+  h3 {
+    @apply text-lg font-semibold mt-6 mb-2;
+  }
+  p {
+    @apply text-sm leading-relaxed text-muted-foreground mb-4;
+  }
+  ul, ol {
+    @apply text-sm text-muted-foreground mb-4 pl-6 space-y-1.5;
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol {
+    @apply list-decimal;
+  }
+  li {
+    @apply leading-relaxed;
+  }
+  strong {
+    @apply font-semibold text-foreground;
+  }
+  a {
+    @apply text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors;
+  }
+  blockquote {
+    @apply border-l-2 border-border pl-4 italic text-muted-foreground my-4;
+  }
+  code {
+    @apply text-sm font-mono bg-muted px-1.5 py-0.5 rounded-md;
+  }
+  pre {
+    @apply rounded-lg border border-border p-4 overflow-x-auto my-6 text-sm;
+  }
+  pre code {
+    @apply bg-transparent p-0 rounded-none;
+  }
+  hr {
+    @apply border-border my-8;
+  }
+  img {
+    @apply rounded-lg border border-border my-6;
+  }
+
+  /* Hide the duplicate h1 rendered by MDX (frontmatter title is shown in header) */
+  > h1:first-child {
+    @apply hidden;
+  }
+}

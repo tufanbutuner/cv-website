@@ -129,4 +129,5 @@ export const sections = [
   { id: "skills", label: "Skills" },
   { id: "education", label: "Education" },
   { id: "certifications", label: "Certifications" },
+  { id: "writing", label: "Writing" },
 ] as const
