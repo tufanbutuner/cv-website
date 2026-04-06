@@ -28,7 +28,7 @@ export default function App() {
             }
           />
           <Route
-            path="/writing"
+            path="/blog"
             element={
               <Layout>
                 <WritingPage />

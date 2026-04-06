@@ -1,15 +1,15 @@
-import { profile, experience, skills } from "@/data/cv"
-import { getAllPosts } from "@/lib/posts"
-import { Link } from "react-router-dom"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { ArrowRight, FileText, PenLine, Briefcase, Code } from "lucide-react"
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { experience, profile, skills } from "@/data/cv";
+import { getAllPosts } from "@/lib/posts";
+import { ArrowRight, Briefcase, Code, FileText, PenLine } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function HomePage() {
-  const posts = getAllPosts()
-  const latestPost = posts[0]
-  const currentRole = experience[0]
-  const topSkills = skills[0]
+  const posts = getAllPosts();
+  const latestPost = posts[0];
+  const currentRole = experience[0];
+  const topSkills = skills[0];
 
   return (
     <div className="space-y-12">
@@ -34,9 +34,7 @@ export function HomePage() {
             </p>
           </div>
           <p className="text-sm font-semibold">{currentRole.role}</p>
-          <p className="text-sm text-muted-foreground">
-            {currentRole.company}
-          </p>
+          <p className="text-sm text-muted-foreground">{currentRole.company}</p>
           <p className="text-xs text-muted-foreground mt-1">
             {currentRole.period}
           </p>
@@ -52,7 +50,11 @@ export function HomePage() {
           </div>
           <div className="flex flex-wrap gap-1.5">
             {topSkills.skills.map((s) => (
-              <Badge key={s} variant="secondary" className="font-normal text-xs">
+              <Badge
+                key={s}
+                variant="secondary"
+                className="font-normal text-xs"
+              >
                 {s}
               </Badge>
             ))}
@@ -76,23 +78,25 @@ export function HomePage() {
             <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            Experience, skills, education, and certifications — the full picture.
+            Experience, skills, education, and certifications — the full
+            picture.
           </p>
         </Link>
 
         <Link
-          to="/writing"
+          to="/blog"
           className="group rounded-lg border border-border p-5 hover:bg-accent/30 transition-colors"
         >
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <PenLine className="w-4 h-4 text-muted-foreground" />
-              <p className="text-sm font-semibold">Writing</p>
+              <p className="text-sm font-semibold">Blog</p>
             </div>
             <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            {posts.length} {posts.length === 1 ? "post" : "posts"} on front-end architecture, testing, and career.
+            {posts.length} {posts.length === 1 ? "post" : "posts"} on front-end
+            architecture, testing, and career.
           </p>
         </Link>
       </div>
@@ -130,5 +134,5 @@ export function HomePage() {
         </>
       )}
     </div>
-  )
+  );
 }

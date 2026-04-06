@@ -1,20 +1,24 @@
-import { Sidebar } from "@/components/Sidebar"
-import { MobileNav } from "@/components/MobileNav"
-import { useEffect } from "react"
+import { MobileNav } from "@/components/MobileNav";
+import { Sidebar } from "@/components/Sidebar";
+import { useEffect } from "react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
-      const routes = ["/", "/cv", "/writing"]
-      const index = parseInt(e.key) - 1
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      )
+        return;
+      const routes = ["/", "/cv", "/blog"];
+      const index = parseInt(e.key) - 1;
       if (index >= 0 && index < routes.length) {
-        window.location.href = routes[index]
+        window.location.href = routes[index];
       }
-    }
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [])
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <div className="flex min-h-screen">
@@ -26,5 +30,5 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </main>
       </div>
     </div>
-  )
+  );
 }

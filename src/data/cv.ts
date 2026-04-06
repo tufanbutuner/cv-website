@@ -9,15 +9,15 @@ export const profile = {
     github: "https://github.com/tufanbutuner",
     linkedin: "https://linkedin.com/in/tufanbutuner",
   },
-}
+};
 
 export interface Experience {
-  role: string
-  company: string
-  period: string
-  description?: string
-  responsibilities?: string[]
-  projects?: { name: string; description: string }[]
+  role: string;
+  company: string;
+  period: string;
+  description?: string;
+  responsibilities?: string[];
+  projects?: { name: string; description: string }[];
 }
 
 export const experience: Experience[] = [
@@ -79,24 +79,31 @@ export const experience: Experience[] = [
     description:
       "Built a rental marketplace using React and TypeScript with atomic design principles. Mentored junior developers, ran code reviews, and drove improvements in UI consistency, accessibility, and performance. Worked in Scrum and Kanban teams.",
   },
-]
+];
 
 export const education = {
   degree: "BSc Computer Science",
   classification: "First Class Honours",
   institution: "Goldsmiths, University of London",
   period: "2018 - 2021",
-}
+};
 
 export interface SkillCategory {
-  name: string
-  skills: string[]
+  name: string;
+  skills: string[];
 }
 
 export const skills: SkillCategory[] = [
   {
     name: "Languages & Frameworks",
-    skills: ["TypeScript/JavaScript", "React", "Node.js", "C#/.NET", "HTML/CSS", "D3.js"],
+    skills: [
+      "TypeScript/JavaScript",
+      "React",
+      "Node.js",
+      "C#/.NET",
+      "HTML/CSS",
+      "D3.js",
+    ],
   },
   {
     name: "Cloud & Infra",
@@ -114,17 +121,17 @@ export const skills: SkillCategory[] = [
     name: "Other",
     skills: ["Accessibility (WCAG)", "Git", "Agile (Scrum/Kanban)"],
   },
-]
+];
 
 export const certifications = [
   {
     name: "AWS Certified Developer Associate",
     date: "Oct 2024",
   },
-]
+];
 
 export const navItems = [
   { id: "home", label: "Home", path: "/" },
   { id: "cv", label: "CV", path: "/cv" },
-  { id: "writing", label: "Writing", path: "/writing" },
-] as const
+  { id: "writing", label: "Blog", path: "/blog" },
+] as const;

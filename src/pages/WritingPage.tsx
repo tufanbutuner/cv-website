@@ -1,25 +1,25 @@
-import { getAllPosts } from "@/lib/posts"
-import { Link } from "react-router-dom"
+import { getAllPosts } from "@/lib/posts";
+import { Link } from "react-router-dom";
 
 export function WritingPage() {
-  const posts = getAllPosts()
+  const posts = getAllPosts();
 
   const grouped = posts.reduce<Record<string, typeof posts>>((acc, post) => {
-    const year = new Date(post.date).getFullYear().toString()
-    if (!acc[year]) acc[year] = []
-    acc[year].push(post)
-    return acc
-  }, {})
+    const year = new Date(post.date).getFullYear().toString();
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(post);
+    return acc;
+  }, {});
 
-  const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a))
+  const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
 
   return (
     <div>
       <h1 className="text-3xl font-semibold tracking-tight lg:text-4xl mb-2">
-        Writing
+        Blog
       </h1>
       <p className="text-muted-foreground mb-10">
-        Thoughts on front-end architecture, testing, and the work in between.
+        Posts on front-end architecture, testing, and the work in between.
       </p>
 
       {posts.length === 0 ? (
@@ -55,5 +55,5 @@ export function WritingPage() {
         </div>
       )}
     </div>
-  )
+  );
 }

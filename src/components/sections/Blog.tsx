@@ -1,24 +1,24 @@
-import { getAllPosts } from "@/lib/posts"
-import { Link } from "react-router-dom"
+import { getAllPosts } from "@/lib/posts";
+import { Link } from "react-router-dom";
 
 export function Blog() {
-  const posts = getAllPosts()
+  const posts = getAllPosts();
 
-  if (posts.length === 0) return null
+  if (posts.length === 0) return null;
 
   const grouped = posts.reduce<Record<string, typeof posts>>((acc, post) => {
-    const year = new Date(post.date).getFullYear().toString()
-    if (!acc[year]) acc[year] = []
-    acc[year].push(post)
-    return acc
-  }, {})
+    const year = new Date(post.date).getFullYear().toString();
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(post);
+    return acc;
+  }, {});
 
-  const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a))
+  const years = Object.keys(grouped).sort((a, b) => Number(b) - Number(a));
 
   return (
     <section id="writing" className="scroll-mt-16">
       <h2 className="text-lg font-semibold tracking-tight text-muted-foreground mb-6">
-        Writing
+        Blog
       </h2>
       <div className="space-y-8">
         {years.map((year) => (
@@ -49,5 +49,5 @@ export function Blog() {
         ))}
       </div>
     </section>
-  )
+  );
 }
