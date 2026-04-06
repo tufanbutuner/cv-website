@@ -1,26 +1,31 @@
-import { profile, sections } from "@/data/cv"
-import { Mail, Menu, X } from "lucide-react"
-import { GithubIcon, LinkedinIcon } from "@/components/icons"
-import { useState } from "react"
+import { GithubIcon, LinkedinIcon } from "@/components/icons";
+import { navItems, profile } from "@/data/cv";
+import { FileText, Home, Mail, Menu, PenLine, X } from "lucide-react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-export function MobileNav({ activeSection }: { activeSection: string }) {
-  const [open, setOpen] = useState(false)
+const icons: Record<string, React.ComponentType<{ className?: string }>> = {
+  home: Home,
+  cv: FileText,
+  writing: PenLine,
+};
 
-  const handleClick = (id: string) => {
-    setOpen(false)
-    const el = document.getElementById(id)
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" })
-    }
-  }
+export function MobileNav() {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  const getIsActive = (path: string) => {
+    if (path === "/") return location.pathname === "/";
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <div className="lg:hidden sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
       <div className="flex items-center justify-between px-4 py-3">
-        <div>
+        <Link to="/" onClick={() => setOpen(false)}>
           <p className="text-sm font-semibold">{profile.name}</p>
           <p className="text-xs text-muted-foreground">{profile.title}</p>
-        </div>
+        </Link>
         <button
           onClick={() => setOpen(!open)}
           className="p-2 rounded-md hover:bg-accent transition-colors"
@@ -31,22 +36,29 @@ export function MobileNav({ activeSection }: { activeSection: string }) {
 
       {open && (
         <div className="border-t border-border px-4 py-3 space-y-1">
-          {sections.map((section, i) => (
-            <button
-              key={section.id}
-              onClick={() => handleClick(section.id)}
-              className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm w-full text-left transition-colors ${
-                activeSection === section.id
-                  ? "bg-accent text-accent-foreground font-medium"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <span className="text-xs font-mono text-muted-foreground w-4">
-                {i + 1}
-              </span>
-              {section.label}
-            </button>
-          ))}
+          {navItems.map((item, i) => {
+            const Icon = icons[item.id];
+            const active = getIsActive(item.path);
+            return (
+              <Link
+                key={item.id}
+                to={item.path}
+                onClick={() => setOpen(false)}
+                className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm w-full transition-colors ${
+                  active
+                    ? "bg-accent text-accent-foreground font-medium"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {Icon && <Icon className="w-3.5 h-3.5" />}
+                <span className="flex-1">{item.label}</span>
+                <span className="text-xs font-mono text-muted-foreground w-4 text-right">
+                  {i + 1}
+                </span>
+              </Link>
+            );
+          })}
+
           <div className="flex items-center gap-2 pt-3 border-t border-border mt-2">
             <a
               href={profile.links.github}
@@ -74,5 +86,5 @@ export function MobileNav({ activeSection }: { activeSection: string }) {
         </div>
       )}
     </div>
-  )
+  );
 }

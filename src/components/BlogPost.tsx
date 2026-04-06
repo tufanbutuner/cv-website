@@ -1,38 +1,24 @@
 import { useParams, Link } from "react-router-dom"
-import { useEffect, useState } from "react"
 import { getPostComponent, getAllPosts } from "@/lib/posts"
 import { ArrowLeft } from "lucide-react"
 
 export function BlogPost() {
   const { slug } = useParams<{ slug: string }>()
-  const [Content, setContent] = useState<React.ComponentType | null>(null)
   const meta = getAllPosts().find((p) => p.slug === slug)
-
-  useEffect(() => {
-    if (!slug) return
-    getPostComponent(slug).then((component) => {
-      if (component) setContent(() => component)
-    })
-  }, [slug])
+  const Content = slug ? getPostComponent(slug) : null
 
   if (!Content || !meta) {
-    return (
-      <div className="flex-1 flex items-center justify-center">
-        <p className="text-muted-foreground">
-          {Content === null && meta ? "Loading..." : "Post not found."}
-        </p>
-      </div>
-    )
+    return <p className="text-muted-foreground">Post not found.</p>
   }
 
   return (
-    <div className="flex-1 max-w-2xl mx-auto w-full px-6 py-12 lg:py-16">
+    <div>
       <Link
-        to="/"
+        to="/writing"
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
       >
         <ArrowLeft className="w-4 h-4" />
-        Back
+        Back to Writing
       </Link>
 
       <header className="mb-10">

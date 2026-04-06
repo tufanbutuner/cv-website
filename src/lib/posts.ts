@@ -1,5 +1,3 @@
-import matter from "gray-matter"
-
 export interface PostMeta {
   slug: string
   title: string
@@ -7,36 +5,37 @@ export interface PostMeta {
   description: string
 }
 
-const postFiles = import.meta.glob("/src/posts/*.mdx", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>
+interface PostModule {
+  default: React.ComponentType
+  frontmatter: {
+    title?: string
+    date?: string
+    description?: string
+  }
+}
 
-const postModules = import.meta.glob("/src/posts/*.mdx") as Record<
-  string,
-  () => Promise<{ default: React.ComponentType }>
->
+const postModules = import.meta.glob("/src/posts/*.mdx", {
+  eager: true,
+}) as Record<string, PostModule>
 
 export function getAllPosts(): PostMeta[] {
-  return Object.entries(postFiles)
-    .map(([filepath, raw]) => {
+  return Object.entries(postModules)
+    .map(([filepath, mod]) => {
       const slug = filepath.replace("/src/posts/", "").replace(".mdx", "")
-      const { data } = matter(raw)
+      const fm = mod.frontmatter ?? {}
       return {
         slug,
-        title: data.title ?? slug,
-        date: data.date ?? "",
-        description: data.description ?? "",
+        title: fm.title ?? slug,
+        date: fm.date ?? "",
+        description: fm.description ?? "",
       }
     })
     .sort((a, b) => (a.date > b.date ? -1 : 1))
 }
 
-export async function getPostComponent(slug: string) {
+export function getPostComponent(slug: string): React.ComponentType | null {
   const key = `/src/posts/${slug}.mdx`
-  const loader = postModules[key]
-  if (!loader) return null
-  const mod = await loader()
+  const mod = postModules[key]
+  if (!mod) return null
   return mod.default
 }

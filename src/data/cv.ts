@@ -123,11 +123,8 @@ export const certifications = [
   },
 ]
 
-export const sections = [
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
-  { id: "skills", label: "Skills" },
-  { id: "education", label: "Education" },
-  { id: "certifications", label: "Certifications" },
-  { id: "writing", label: "Writing" },
+export const navItems = [
+  { id: "home", label: "Home", path: "/" },
+  { id: "cv", label: "CV", path: "/cv" },
+  { id: "writing", label: "Writing", path: "/writing" },
 ] as const
