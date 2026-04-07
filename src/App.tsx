@@ -4,6 +4,7 @@ import { BlogPostPage } from "@/pages/BlogPostPage";
 import { CvPage } from "@/pages/CvPage";
 import { HomePage } from "@/pages/HomePage";
 import { WritingPage } from "@/pages/WritingPage";
+import { Analytics } from "@vercel/analytics/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default function App() {
@@ -45,6 +46,7 @@ export default function App() {
           />
         </Routes>
       </TooltipProvider>
+      <Analytics />
     </BrowserRouter>
   );
 }
